@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { AlumnosService } from '../../../../core/services/alumnos.service';
 import { Alumnos } from '../../../../shared/models/interfaces';
+import { Observable } from 'rxjs';
+import { LoadingService } from '../../../../core/services/loading.service';
 
 
 const listaAlumnos: Alumnos[] = [
@@ -19,8 +21,11 @@ export class AlumnosComponent {
   displayedColumns: string[] = ['id', 'fullName', 'phone', 'email', 'delete'];
   dataSource = new MatTableDataSource<Alumnos>(listaAlumnos);
   colorearTabla = false
+  loading = false
 
-  constructor(private alumnoService: AlumnosService){}
+  constructor(private alumnoService: AlumnosService, private loadingService: LoadingService){
+    this.getUsuarios()
+  }
 
   onUserSubmitted(ev: Alumnos): void {
     const nuevoAlumno = {...ev, id: listaAlumnos.length +1}
@@ -42,5 +47,22 @@ export class AlumnosComponent {
   }
   private actualizarTabla(): void {
     this.dataSource.data = [...listaAlumnos];
+  }
+  getUsuarios():void {
+    const obs = new Observable((suscriber)=> {
+      setTimeout(() => {
+        suscriber.next(listaAlumnos),
+        suscriber.complete()
+      }, 2000);
+    })
+
+    this.loadingService.setIsLoading(true);
+
+    obs.subscribe({
+      next: (alumnos)=> {
+        console.log(alumnos)
+      },
+      complete: () => this.loadingService.setIsLoading(false)
+    })
   }
 }

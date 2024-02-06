@@ -1,32 +1,59 @@
-<mat-drawer-container class="example-container" autosize style="height: 100vh;">
-    <mat-drawer #drawer class="dashboard-sidebar" mode="side">
-      <nav class="nav flex-column">
-        <a href="#" style="background-color: black;"><img src="../../../assets/logocoderpng.png" style="height: 64px;" alt=""></a>
-        <a appTitulosTamanio class="nav-link active" routerLink='home' mat-list-item>Inicio</a>
-        <a appTitulosTamanio class="nav-link" routerLink="nosotros">Nosotros</a>
-        <a appTitulosTamanio class="nav-link" routerLink="alumnos" mat-list-item>Alumnos</a>
-        <a appTitulosTamanio class="nav-link" routerLink="profesores">Profesores</a>
-        <a appTitulosTamanio class="nav-link" routerLink="login">Iniciar sesión</a>
-      </nav>
-    </mat-drawer>
-  
-    <div class="example-sidenav-content">
-      <mat-toolbar color="primary">
-        <button 
-        mat-icon-button class="example-icon" 
-        aria-label="Example icon-button with menu icon" 
-        (click)="drawer.toggle()">
-          <mat-icon>menu</mat-icon>
-        </button>
-        <span appTitulosTamanio>Proyecto Final - Lista de Alumnos</span>
-        <span class="example-spacer"></span>
-        <h2 appTitulosTamanio>
-          ¡Bienvendido {{user.name}}!
-        </h2>
-      </mat-toolbar>
+<mat-drawer-container class="example-container" autosize style="height: 100vh">
+  <mat-drawer #drawer class="dashboard-sidebar" mode="side">
+    <nav class="nav flex-column">
+      <a href="#" style="background-color: black"
+        ><img
+          src="../../../assets/logocoderpng.png"
+          style="height: 64px"
+          alt=""
+      /></a>
+      <a
+        appTitulosTamanio
+        class="nav-link active"
+        routerLink="home"
+        mat-list-item
+        >Inicio</a
+      >
+      <a appTitulosTamanio class="nav-link" routerLink="nosotros">Nosotros</a>
+      <a appTitulosTamanio class="nav-link" routerLink="alumnos" mat-list-item
+        >Alumnos</a
+      >
+      <a appTitulosTamanio class="nav-link" routerLink="profesores"
+        >Profesores</a
+      >
+      <a appTitulosTamanio class="nav-link" routerLink="login"
+        >Iniciar sesión</a
+      >
+    </nav>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <mat-toolbar color="primary">
+      <button
+        mat-icon-button
+        class="example-icon"
+        aria-label="Example icon-button with menu icon"
+        (click)="drawer.toggle()"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span appTitulosTamanio>Proyecto Final - Lista de Alumnos</span>
+      <span class="example-spacer"></span>
+      <h2 appTitulosTamanio>¡Bienvendido {{ user.name }}!</h2>
+    </mat-toolbar>
+  </div>
+  <div class="p-5">
+    <ng-container
+      class="appLoading d-flex align-content-center justify-content-center"
+      *ngIf="isLoading; else pantallaCargada"
+    >
+    <div class="p-5 d-flex align-items-center justify-content-center" style="height: 60vh">
+      <mat-spinner></mat-spinner>
     </div>
-    <div class="p-5">
+      
+    </ng-container>
+    <ng-template #pantallaCargada>
       <router-outlet></router-outlet>
-    </div>
-  </mat-drawer-container>
-  
+    </ng-template>
+  </div>
+</mat-drawer-container>

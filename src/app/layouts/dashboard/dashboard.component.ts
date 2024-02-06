@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoadingService } from '../../core/services/loading.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,5 +10,11 @@ export class DashboardComponent {
   showFiller = false;
   user = {
     name: 'Felipe'
+  }
+  isLoading = false
+  constructor(private loadingService: LoadingService) {
+    this.loadingService.isLoading$.subscribe({
+      next: (value) => this.isLoading = value
+    })
   }
 }

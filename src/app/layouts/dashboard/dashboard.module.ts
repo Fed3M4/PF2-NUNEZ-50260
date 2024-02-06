@@ -13,6 +13,7 @@ import { NosotrosModule } from './pages/nosotros/nosotros.module';
 import { HomeModule } from './pages/home/home.module';
 import { ProfesoresModule } from './pages/profesores/profesores.module';
 import { LoginModule } from '../auth/login/login.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { LoginModule } from '../auth/login/login.module';
     NosotrosModule,
     HomeModule,
     ProfesoresModule,
-    LoginModule
+    LoginModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     DashboardComponent
