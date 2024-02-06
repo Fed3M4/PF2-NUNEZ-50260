@@ -5,13 +5,14 @@ export interface Profesor{
     phone: number;
     email: string;
     password: string;
-    curso: Curso;
-    isActive: boolean
+    curso: Cursos;
+    isActive: boolean;
 }
 
-export interface Curso {
-    id: Number;
-    name: String;
+export interface Cursos {
+    id: number;
+    name: string;
+    description: string;
 }
 
 export interface Alumnos {
@@ -20,5 +21,5 @@ export interface Alumnos {
     lastName: string;
     phone: number;
     email: string;
-    password: string
+    password: string;
 }

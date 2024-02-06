@@ -14,6 +14,7 @@ import { HomeModule } from './pages/home/home.module';
 import { ProfesoresModule } from './pages/profesores/profesores.module';
 import { LoginModule } from '../auth/login/login.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CursosModule } from './pages/cursos/cursos.module';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     HomeModule,
     ProfesoresModule,
     LoginModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    CursosModule
   ],
   exports: [
     DashboardComponent
