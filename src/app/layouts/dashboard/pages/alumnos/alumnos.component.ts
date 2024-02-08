@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { AlumnosService } from '../../../../core/services/alumnos.service';
 import { Alumnos } from '../../../../shared/models/interfaces';
@@ -6,31 +6,31 @@ import { Observable } from 'rxjs';
 import { LoadingService } from '../../../../core/services/loading.service';
 
 
-const listaAlumnos: Alumnos[] = [
-  {id: 1, firstName: 'Leandro', lastName: 'Ramis', phone: 1138459874, email: 'leandro@gmail.com', password: 'racing2023'},
-  {id: 2, firstName: 'Alejandro', lastName: 'Tarutani', phone: 1173959385, email: 'atarutani@gmail.com', password: 'mateo2022'},
-  {id: 3, firstName: 'Lucas', lastName: 'Nabarro', phone: 1165290665, email: 'lucas@gmail.com', password: 'juegosonline'}
-];
-
 @Component({
   selector: 'app-alumnos',
   templateUrl: './alumnos.component.html',
   styleUrl: './alumnos.component.scss'
 })
-export class AlumnosComponent {
+export class AlumnosComponent implements OnInit{
   displayedColumns: string[] = ['id', 'fullName', 'phone', 'email', 'delete'];
-  dataSource = new MatTableDataSource<Alumnos>(listaAlumnos);
+  dataSource: Alumnos[] = []
   colorearTabla = false
   loading = false
 
   constructor(private alumnoService: AlumnosService, private loadingService: LoadingService){
-    this.getUsuarios()
+  }
+  ngOnInit(): void {
+    this.loadingService.setIsLoading(true)
+    this.alumnoService.getAlumnos().subscribe({
+      next:(alumnos) => this.dataSource = alumnos,
+      complete: () => {this.loadingService.setIsLoading(false)}
+    })
   }
 
   onUserSubmitted(ev: Alumnos): void {
-    const nuevoAlumno = {...ev, id: listaAlumnos.length +1}
+    const nuevoAlumno = {...ev, id: this.dataSource.length +1}
     if(nuevoAlumno) {
-      listaAlumnos.push(nuevoAlumno)
+      this.dataSource.push(nuevoAlumno)
       this.colorearTabla = true
       this.actualizarTabla();
     }
@@ -38,31 +38,14 @@ export class AlumnosComponent {
   eliminarAlumnos(element: Alumnos): void{
     const alumnoAEliminar = element.firstName
     if (alumnoAEliminar) {
-      const indexAlumno = listaAlumnos.findIndex(alumno => alumno.firstName === alumnoAEliminar);
+      const indexAlumno = this.dataSource.findIndex(alumno => alumno.firstName === alumnoAEliminar);
       if (indexAlumno !== -1) {
-        listaAlumnos.splice(indexAlumno, 1);
+        this.dataSource.splice(indexAlumno, 1);
         this.actualizarTabla();
       }
     }
   }
   private actualizarTabla(): void {
-    this.dataSource.data = [...listaAlumnos];
-  }
-  getUsuarios():void {
-    const obs = new Observable((suscriber)=> {
-      setTimeout(() => {
-        suscriber.next(listaAlumnos),
-        suscriber.complete()
-      }, 2000);
-    })
-
-    this.loadingService.setIsLoading(true);
-
-    obs.subscribe({
-      next: (alumnos)=> {
-        console.log(alumnos)
-      },
-      complete: () => this.loadingService.setIsLoading(false)
-    })
+    this.dataSource = [...this.dataSource];
   }
 }

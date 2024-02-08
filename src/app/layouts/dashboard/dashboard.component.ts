@@ -14,7 +14,9 @@ export class DashboardComponent {
   isLoading = false
   constructor(private loadingService: LoadingService) {
     this.loadingService.isLoading$.subscribe({
-      next: (value) => this.isLoading = value
+      next: (value) => {
+        this.isLoading = value;
+      }
     })
   }
 }
