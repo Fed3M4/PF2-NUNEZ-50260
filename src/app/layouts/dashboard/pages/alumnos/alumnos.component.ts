@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
 import { AlumnosService } from '../../../../core/services/alumnos.service';
 import { Alumnos } from '../../../../shared/models/interfaces';
-import { Observable } from 'rxjs';
 import { LoadingService } from '../../../../core/services/loading.service';
 
 
@@ -15,7 +13,6 @@ export class AlumnosComponent implements OnInit{
   displayedColumns: string[] = ['id', 'fullName', 'phone', 'email', 'delete'];
   dataSource: Alumnos[] = []
   colorearTabla = false
-  loading = false
 
   constructor(private alumnoService: AlumnosService, private loadingService: LoadingService){
   }

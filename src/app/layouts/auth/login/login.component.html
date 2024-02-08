@@ -1,47 +1,64 @@
-<div class="d-flex justify-content-evenly">
-  <div class="d-flex justify-content-start align-content-center flex-column p-5 m-3">
-    <div class="d-flex justify-content-between">
-      <div class="col">
-        <mat-form-field class="w-100">
-          <mat-label>Enter your email</mat-label>
-          <input
-            matInput
-            placeholder="pat@example.com"
-            [formControl]="email"
-            required
-          />
-          @if (email.invalid) {
-          <mat-error>{{ getErrorMessage() }}</mat-error>
-          }
-        </mat-form-field>
+<div class="row d-flex">
+  <form
+    [formGroup]="loginForm"
+    class="container text-center"
+    (ngSubmit)="loginProfesor()"
+  >
+    <div class="d-flex justify-content-evenly">
+      <div
+        class="d-flex justify-content-start align-content-center flex-column p-5 m-3"
+      >
+        <div class="d-flex justify-content-between">
+          <div class="col">
+            <mat-form-field class="w-100">
+              <mat-label>Enter your email</mat-label>
+              <input
+                matInput
+                placeholder="pat@example.com"
+                formControlName="email"
+                required
+              />
+              <!-- @if (email.invalid) {
+              <mat-error>{{ getErrorMessage() }}</mat-error>
+              } -->
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div class="col">
+            <mat-form-field class="w-100">
+              <mat-label>Ingresa tu contraseña</mat-label>
+              <input
+                formControlName="password"
+                required
+                matInput
+                [type]="hide ? 'password' : 'text'"
+              />
+              <!-- @if (password.invalid) {
+              <mat-error>{{ getErrorMessage() }}</mat-error>
+              } -->
+              <button
+                mat-icon-button
+                matSuffix
+                (click)="hide = !hide"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide"
+              >
+                <mat-icon>{{
+                  hide ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+            </mat-form-field>
+            <div>
+              <button type="submit" mat-raised-button color="primary">
+                Ingresar
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="d-flex justify-content-between">
-      <div class="col">
-        <mat-form-field class="w-100">
-          <mat-label>Enter your password</mat-label>
-          <input
-            [formControl]="password"
-            required
-            matInput
-            [type]="hide ? 'password' : 'text'"
-          />
-          @if (password.invalid) {
-          <mat-error>{{ getErrorMessage() }}</mat-error>
-          }
-          <button
-            mat-icon-button
-            matSuffix
-            (click)="hide = !hide"
-            [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide"
-          >
-            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-          </button>
-        </mat-form-field>
-      </div>
-    </div>
-  </div>
+  </form>
   <div>
     <img
       src="../../../../assets/discutiendo-video-curso.jpg"

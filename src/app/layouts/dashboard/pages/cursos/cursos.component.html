@@ -1,17 +1,16 @@
-<div class="card-group d-flex justify-content-evenly">
-    <div *ngFor=" let curso of cursos" style="width: 18rem;">
+<div class="card-group d-flex justify-content-evenly align-items-stretch">
+    <div *ngFor=" let curso of cursos" class="d-flex p-1" style="width: 18rem;">
         <mat-card class="example-card">
             <mat-card-header>
               <mat-card-title-group>
                 <mat-card-title>{{curso.name}}</mat-card-title>
                 <mat-card-subtitle>{{curso.id}}</mat-card-subtitle>
-                <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+                <img mat-card-sm-image src="{{curso.img}}" >
               </mat-card-title-group>
             </mat-card-header>
             <mat-card-content>
               {{curso.description}}
             </mat-card-content>
           </mat-card>
-          <hr>
     </div>
 </div>

@@ -13,6 +13,7 @@ export interface Cursos {
     id: number;
     name: string;
     description: string;
+    img: string;
 }
 
 export interface Alumnos {

@@ -25,7 +25,7 @@
       >Cursos</a
       >
       <a appTitulosTamanio class="nav-link" routerLink="login"
-        >Iniciar sesión</a
+      >Mi datos</a
       >
     </nav>
   </mat-drawer>
@@ -42,7 +42,13 @@
       </button>
       <span appTitulosTamanio>Proyecto Final - Lista de Alumnos</span>
       <span class="example-spacer"></span>
-      <h2 appTitulosTamanio>¡Bienvendido {{ user.name }}!</h2>
+      <!-- <h2 appTitulosTamanio>¡Bienvendido {{ user }}!</h2> -->
+      <ng-container *ngIf="isLoggedIn; else showLoginButton">
+        <h2 appTitulosTamanio>¡Bienvenido {{ user }}!</h2>
+      </ng-container>
+      <ng-template #showLoginButton>
+        <a routerLink="login"><button mat-button style="background-color: rgb(48, 47, 47);" class="btn btn-primary">Iniciar sesión</button></a>
+      </ng-template>
     </mat-toolbar>
   </div>
   <div class="d-flex justify-content-center align-items-center">

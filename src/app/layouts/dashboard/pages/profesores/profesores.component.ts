@@ -1,12 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Profesor } from '../../../../shared/models/interfaces';
+import { ProfesoresService } from '../../../../core/services/profesores.service';
+import { LoadingService } from '../../../../core/services/loading.service';
 
-const listaProfesores: Profesor[] = [
-  {id: 1, firstName: 'Laura', lastName: 'Tarangana', phone: 1138459874, email: 'panceres@gmail.com', password: 'racing2023', curso:{id: 2030, name: 'Angular', description:''}, isActive: true},
-  {id: 2, firstName: 'Roberto', lastName: 'Carlos', phone: 1173959385, email: 'roblos@gmail.com', password: 'mateo2022', curso:{id: 2040, name: 'ReactJS', description:''}, isActive: true},
-  {id: 3, firstName: 'Ricardo', lastName: 'Fortunato', phone: 1165290665, email: 'rfort@gmail.com', password: 'juegosonline', curso:{id: 3030, name: 'Matemáticas II', description:''}, isActive: false}
-];
 
 @Component({
   selector: 'app-profesores',
@@ -14,9 +11,18 @@ const listaProfesores: Profesor[] = [
   styleUrl: './profesores.component.scss'
 })
 
-export class ProfesoresComponent {
-  value: string = ' '
+export class ProfesoresComponent implements OnInit {
+  // value: string = ' '
+  dataSource: Profesor[] = [];
+
+  constructor(private profesoresService: ProfesoresService, private loadingService: LoadingService) {}
+  ngOnInit(): void {
+    this.loadingService.setIsLoading(true);
+    this.profesoresService.getProfesores().subscribe({
+      next: (profesores) => this.dataSource = profesores,
+      complete: () => {this.loadingService.setIsLoading(false)}
+    })
+  }
 
   displayedColumns: string[] = ['id', 'fullName', 'phone', 'email', 'curso', 'disponible'];
-  dataSource = new MatTableDataSource<Profesor>(listaProfesores);
 }
