@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AlumnosService } from '../../../../core/services/alumnos.service';
 import { Alumnos } from '../../../../shared/models/interfaces';
 import { LoadingService } from '../../../../core/services/loading.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AltaAlumnosComponent } from './components/alta-alumnos/alta-alumnos.component';
+
 
 
 @Component({
@@ -14,7 +17,7 @@ export class AlumnosComponent implements OnInit{
   dataSource: Alumnos[] = []
   colorearTabla = false
 
-  constructor(private alumnoService: AlumnosService, private loadingService: LoadingService){
+  constructor(private alumnoService: AlumnosService, private loadingService: LoadingService, private dialog: MatDialog){
   }
   ngOnInit(): void {
     this.loadingService.setIsLoading(true)
@@ -24,14 +27,6 @@ export class AlumnosComponent implements OnInit{
     })
   }
 
-  onUserSubmitted(ev: Alumnos): void {
-    const nuevoAlumno = {...ev, id: this.dataSource.length +1}
-    if(nuevoAlumno) {
-      this.dataSource.push(nuevoAlumno)
-      this.colorearTabla = true
-      this.actualizarTabla();
-    }
-  }
   eliminarAlumnos(element: Alumnos): void{
     const alumnoAEliminar = element.firstName
     if (alumnoAEliminar) {
@@ -44,5 +39,18 @@ export class AlumnosComponent implements OnInit{
   }
   private actualizarTabla(): void {
     this.dataSource = [...this.dataSource];
+  }
+
+  openNewUserModal(): void {
+    const dialogRef = this.dialog.open(AltaAlumnosComponent, {
+      width: '75vw',
+      height: 'auto',
+    });
+    dialogRef.componentInstance.userSubmitted.subscribe((newUser: Alumnos) => {
+      const nuevoAlumno = {...newUser, id: this.dataSource.length + 1};
+      this.dataSource.push(nuevoAlumno);
+      this.colorearTabla = true;
+      this.actualizarTabla();
+    });
   }
 }

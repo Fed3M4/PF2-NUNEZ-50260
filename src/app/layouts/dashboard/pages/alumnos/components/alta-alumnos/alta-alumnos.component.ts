@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { AlertService } from '../../../../../../core/services/alerts.service';
 
 @Component({
   selector: 'app-alta-alumnos',
@@ -12,7 +14,7 @@ export class AltaAlumnosComponent {
   @Output()
   userSubmitted = new EventEmitter();
 
-  constructor(private fb: FormBuilder) {
+  constructor(public dialogRef: MatDialogRef<AltaAlumnosComponent>, private fb: FormBuilder, private alertService: AlertService ) {
     this.studentForm = this.fb.group({
       firstName: this.fb.control('', [Validators.required, Validators.minLength(2)]),
       lastName: this.fb.control('', [Validators.required, Validators.minLength(2)]),
@@ -27,7 +29,12 @@ export class AltaAlumnosComponent {
     } else {
         this.userSubmitted.emit(this.studentForm.value);
         this.studentForm.reset();
+        this.dialogRef.close()
+        this.alertService.showSucces('¡Felicitaciones!', 'Usuarios creado con éxito')
     }
+  }
+  closeModal(): void {
+    this.dialogRef.close()
   }
   hide = true;
 }
