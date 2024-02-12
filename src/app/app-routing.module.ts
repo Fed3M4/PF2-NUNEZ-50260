@@ -2,39 +2,19 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './layouts/dashboard/dashboard.component';
 import { LoginComponent } from './layouts/auth/login/login.component';
-import { HomeComponent } from './layouts/dashboard/pages/home/home.component';
-import { AlumnosComponent } from './layouts/dashboard/pages/alumnos/alumnos.component';
-import { NosotrosComponent } from './layouts/dashboard/pages/nosotros/nosotros.component';
-import { ProfesoresComponent } from './layouts/dashboard/pages/profesores/profesores.component';
-import { CursosComponent } from './layouts/dashboard/pages/cursos/cursos.component';
+import { NotFoundComponent } from './layouts/not-found/not-found.component';
 
 const routes: Routes = [
   {
     path: 'dashboard', component: DashboardComponent,
-    children: [
-      {
-        path:'home', component: HomeComponent
-      },
-      {
-        path:'alumnos', component: AlumnosComponent
-      },
-      {
-        path:'nosotros', component: NosotrosComponent
-      },
-      {
-        path:'profesores', component: ProfesoresComponent
-      },
-      {
-        path:'cursos', component: CursosComponent
-      },
-      {
-        path:'login', component: LoginComponent
-      }
-    ]
+    loadChildren: () => import('./layouts/dashboard/dashboard.module').then((m)=> m.DashboardModule)
   },
   {
     path: 'auth/login', component: LoginComponent
   },
+  {
+    path: '404', component: NotFoundComponent
+  }
 ];
 
 @NgModule({

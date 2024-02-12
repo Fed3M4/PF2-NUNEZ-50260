@@ -10,10 +10,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AlumnosService } from '../../../../core/services/alumnos.service';
 import { MY_ALUMNO_TOKEN } from '../../../../core/injection-token';
+import { UserDetailComponent } from './pages/user-detail/user-detail.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
-    AlumnosComponent
+    AlumnosComponent,
+    UserDetailComponent
     ],
   imports: [
     CommonModule,
@@ -22,7 +25,8 @@ import { MY_ALUMNO_TOKEN } from '../../../../core/injection-token';
     MatFormFieldModule,
     AltaAlumnosModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    RouterModule
   ],
   exports: [
     AlumnosComponent

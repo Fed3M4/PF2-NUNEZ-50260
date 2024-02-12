@@ -28,17 +28,15 @@ export class AlumnosComponent implements OnInit{
   }
 
   eliminarAlumnos(element: Alumnos): void{
-    const alumnoAEliminar = element.firstName
-    if (alumnoAEliminar) {
-      const indexAlumno = this.dataSource.findIndex(alumno => alumno.firstName === alumnoAEliminar);
-      if (indexAlumno !== -1) {
-        this.dataSource.splice(indexAlumno, 1);
-        this.actualizarTabla();
+    this.loadingService.setIsLoading(true);
+    this.alumnoService.deleteAlumno(element.id).subscribe({
+      next: (alumnos) => {
+        this.dataSource = [...alumnos]
+      },
+      complete: () => {
+        this.loadingService.setIsLoading(false)
       }
-    }
-  }
-  private actualizarTabla(): void {
-    this.dataSource = [...this.dataSource];
+    })
   }
 
   openNewUserModal(): void {
@@ -46,11 +44,19 @@ export class AlumnosComponent implements OnInit{
       width: '75vw',
       height: 'auto',
     });
-    dialogRef.componentInstance.userSubmitted.subscribe((newUser: Alumnos) => {
-      const nuevoAlumno = {...newUser, id: this.dataSource.length + 1};
-      this.dataSource.push(nuevoAlumno);
-      this.colorearTabla = true;
-      this.actualizarTabla();
-    });
+    dialogRef.componentInstance.userSubmitted.subscribe((newUser: Alumnos) =>{
+      this.alumnoService
+      .createAlumno({...newUser, id: this.dataSource.length + 1})
+      .subscribe({
+        next: (alumnos) => {
+          console.log(alumnos)
+          this.dataSource = [...alumnos]
+        },
+        complete: () => {
+          this.loadingService.setIsLoading(false)
+          this.colorearTabla = true
+        }
+      })
+    })
   }
 }

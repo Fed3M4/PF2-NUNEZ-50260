@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingService } from '../../core/services/loading.service';
 import { LoginService } from '../../core/services/login.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,10 +14,13 @@ export class DashboardComponent implements OnInit {
   isLoading = false
   isLoggedIn = false
 
-  constructor(private loadingService: LoadingService, private loginService: LoginService) {
+  constructor(private loadingService: LoadingService, private loginService: LoginService, private router: Router, private route: ActivatedRoute) {
     this.loadingService.isLoading$.subscribe({
       next: (value) => {
-        this.isLoading = value;
+        setTimeout(() => {
+          this.isLoading = value;
+        });
+        
       }
     })
   }
@@ -34,5 +38,12 @@ export class DashboardComponent implements OnInit {
       this.isLoggedIn = false
       console.log(this.isLoggedIn)
     }
+  }
+  logout(): void{
+    // this.router.navigate(['users'], {relativeTo: this.route}) //para convertir users en una ruta relaiva
+    this.router.navigate(['auth', 'login'])
+    //ademas aca va la logica para borrar el usuario que esta logueado
+    this.user = ''
+    this.userLoggeded()
   }
 }
