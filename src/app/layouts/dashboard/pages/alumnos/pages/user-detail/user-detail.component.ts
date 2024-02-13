@@ -10,12 +10,11 @@ import { LoadingService } from '../../../../../../core/services/loading.service'
   styleUrl: './user-detail.component.scss'
 })
 export class UserDetailComponent {
-  userFinded?: Alumnos | undefined
+  userFinded?: Alumnos
   constructor(private route: ActivatedRoute, private alumnosService: AlumnosService, private loadingService: LoadingService, private router: Router){
     this.alumnosService.getAlumnosByID(this.route.snapshot.params['id']).subscribe({
       next: (findedUser) => {
         console.log(findedUser)
-        this.loadingService.setIsLoading(true)
         this.userFinded = findedUser
         // this.router.navigate(['dashboard', 'alumnos', ':id'], {
         //   queryParams: {
@@ -24,7 +23,6 @@ export class UserDetailComponent {
         //   }
         // })
       },
-      complete: () => this.loadingService.setIsLoading(false)
     })
   }
 }

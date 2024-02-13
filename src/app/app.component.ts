@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { LoadingService } from './core/services/loading.service';
-import { Alumnos } from './shared/models/interfaces';
 
 @Component({
   selector: 'app-root',

@@ -1,7 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
 import { Alumnos } from '../../shared/models/interfaces';
-import { Observable, debounce, debounceTime, delay, of, tap } from 'rxjs';
+import { Observable, debounce, debounceTime, delay, finalize, of, tap } from 'rxjs';
 import { AlertService } from './alerts.service';
+import { LoadingService } from './loading.service';
 
 let ALUMNOS_DB: Alumnos[] = [
   {id: 1, firstName: 'Leandro', lastName: 'Ramis', phone: 1138459874, email: 'leandro@gmail.com', password: 'racing2023'},
@@ -13,10 +14,11 @@ let ALUMNOS_DB: Alumnos[] = [
 @Injectable()
 export class AlumnosService {
 
-  constructor(private alertService: AlertService) {}
+  constructor(private alertService: AlertService, private loadingService: LoadingService) {}
 
   getAlumnos() {
-    return of(ALUMNOS_DB).pipe(delay(1000))
+    this.loadingService.setIsLoading(true)
+    return of(ALUMNOS_DB).pipe(delay(1000), finalize(() => this.loadingService.setIsLoading(false)))
   }
 
   getAlumnoByEmailAndPassword(email: string, password: string): Alumnos | null {
@@ -29,12 +31,20 @@ export class AlumnosService {
   }
 
   deleteAlumno(userID: number) {
+    this.loadingService.setIsLoading(true)
     ALUMNOS_DB = ALUMNOS_DB.filter((alumno) => alumno.id !== userID);
     return this.getAlumnos().pipe(tap(() => {
       this.alertService.showSucces('Realizado', 'Se elimino correctamente')
     }));
   }
-  getAlumnosByID(id: number | string): Observable<Alumnos | undefined> { 
-    return of(ALUMNOS_DB.find((alumno) => alumno.id == id)).pipe(delay(1000))
+
+  getAlumnosByID(id: number): Observable<Alumnos> {
+    const alumno = ALUMNOS_DB.find((alumno) => alumno.id == id);
+    if (alumno) {
+      this.loadingService.setIsLoading(true)
+      return of(alumno).pipe(delay(1000), finalize(() => this.loadingService.setIsLoading(false)));
+    } else {
+      throw this.alertService.showError(`No se encontró ningún alumno con el ID ${id}`);
+    }
   }
 }
