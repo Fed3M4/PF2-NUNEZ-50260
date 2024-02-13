@@ -6,6 +6,9 @@ import { NotFoundComponent } from './layouts/not-found/not-found.component';
 
 const routes: Routes = [
   {
+    path:'', redirectTo: 'dashboard/home', pathMatch: 'full'
+  },
+  {
     path: 'dashboard', component: DashboardComponent,
     loadChildren: () => import('./layouts/dashboard/dashboard.module').then((m)=> m.DashboardModule)
   },
@@ -14,7 +17,8 @@ const routes: Routes = [
   },
   {
     path: '404', component: NotFoundComponent
-  }
+  },
+
 ];
 
 @NgModule({

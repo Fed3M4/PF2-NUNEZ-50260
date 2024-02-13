@@ -34,10 +34,10 @@ import { UserDetailComponent } from './pages/alumnos/pages/user-detail/user-deta
     AlumnosModule,
     SharedModule,
     RouterModule.forChild([
-      // {
-      //   path: '',
-      //   component: HomeComponent,
-      // },
+      {
+        path: '',
+        component: HomeComponent,
+      },
       {
         path: 'home',
         component: HomeComponent,
@@ -71,6 +71,11 @@ import { UserDetailComponent } from './pages/alumnos/pages/user-detail/user-deta
       {
         path: 'login',
         component: LoginComponent,
+      },
+      {
+        path: 'logout',
+        redirectTo: 'dashboard/login',
+        pathMatch: 'full'
       },
       {
         path: '**',
