@@ -5,11 +5,11 @@ export interface Profesor{
     phone: number;
     email: string;
     password: string;
-    curso: Cursos;
+    curso: Curso;
     isActive: boolean;
 }
 
-export interface Cursos {
+export interface Curso {
     id: number;
     name: string;
     description: string;
@@ -23,4 +23,16 @@ export interface Alumnos {
     phone: number;
     email: string;
     password: string;
+}
+
+export interface User {
+    id: number;
+    firstName: string;
+    lastName: string;
+    phone: number;
+    email: string;
+    password: string;
+    isActive: boolean;
+    curso: Curso;
+    role: string;
 }

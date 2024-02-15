@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Cursos } from '../../../../shared/models/interfaces';
+import { Curso } from '../../../../shared/models/interfaces';
 import { LoadingService } from '../../../../core/services/loading.service';
 import { CursosService } from '../../../../core/services/cursos.service';
 
@@ -9,7 +9,7 @@ import { CursosService } from '../../../../core/services/cursos.service';
   styleUrl: './cursos.component.scss'
 })
 export class CursosComponent implements OnInit {
-  cursos: Cursos[] = []
+  cursos: Curso[] = []
 
   constructor(private cursosService: CursosService, private loadingService: LoadingService) {}
   ngOnInit(): void { 

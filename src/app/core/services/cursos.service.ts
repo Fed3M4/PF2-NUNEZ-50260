@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Cursos } from '../../shared/models/interfaces';
+import { Curso } from '../../shared/models/interfaces';
 import { delay, of } from 'rxjs';
 
-const CURSOS_DB: Cursos[] = [
+const CURSOS_DB: Curso[] = [
   { 
     id: 2030,
     name: 'Angular',
