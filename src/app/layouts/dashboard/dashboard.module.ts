@@ -15,13 +15,7 @@ import { ProfesoresModule } from './pages/profesores/profesores.module';
 import { LoginModule } from '../auth/login/login.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CursosModule } from './pages/cursos/cursos.module';
-import { HomeComponent } from './pages/home/home.component';
-import { AlumnosComponent } from './pages/alumnos/alumnos.component';
-import { NosotrosComponent } from './pages/nosotros/nosotros.component';
-import { ProfesoresComponent } from './pages/profesores/profesores.component';
-import { CursosComponent } from './pages/cursos/cursos.component';
-import { LoginComponent } from '../auth/login/login.component';
-import { UserDetailComponent } from './pages/alumnos/pages/user-detail/user-detail.component';
+import { DashboardRoutingModule } from './dashboard-routing-module';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -33,55 +27,7 @@ import { UserDetailComponent } from './pages/alumnos/pages/user-detail/user-deta
     MatToolbarModule,
     AlumnosModule,
     SharedModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: HomeComponent,
-      },
-      {
-        path: 'home',
-        component: HomeComponent,
-      },
-      {
-        path: 'alumnos',
-        component: AlumnosComponent,
-        // children: [
-        //   {
-        //     path: ':id',
-        //     component: UserDetailComponent
-        //   }
-        // ]
-      },
-      {
-        path: 'alumnos/:id',
-        component: UserDetailComponent
-      },
-      {
-        path: 'nosotros',
-        component: NosotrosComponent,
-      },
-      {
-        path: 'profesores',
-        component: ProfesoresComponent,
-      },
-      {
-        path: 'cursos',
-        component: CursosComponent,
-      },
-      {
-        path: 'login',
-        component: LoginComponent,
-      },
-      {
-        path: 'logout',
-        redirectTo: 'dashboard/login',
-        pathMatch: 'full'
-      },
-      {
-        path: '**',
-        redirectTo: '/404',
-      },
-    ]),
+    RouterModule,
     MatListModule,
     NosotrosModule,
     HomeModule,
@@ -89,6 +35,7 @@ import { UserDetailComponent } from './pages/alumnos/pages/user-detail/user-deta
     LoginModule,
     MatProgressSpinnerModule,
     CursosModule,
+    DashboardRoutingModule
   ],
   exports: [DashboardComponent],
 })

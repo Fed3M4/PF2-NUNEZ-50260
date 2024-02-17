@@ -4,6 +4,7 @@ import { CursosComponent } from './cursos.component';
 import {MatCardModule} from '@angular/material/card';
 import { CursosSubscribeFormModule } from './pages/cursos-subscribe-form/cursos-subscribe-form.module';
 import { MatButton } from '@angular/material/button';
+import { CursosRoutingModule } from './cursos-routing.module';
 
 
 
@@ -15,7 +16,8 @@ import { MatButton } from '@angular/material/button';
     CommonModule,
     MatCardModule,
     CursosSubscribeFormModule,
-    MatButton
+    MatButton,
+    CursosRoutingModule
   ],
   exports: [
     CursosComponent

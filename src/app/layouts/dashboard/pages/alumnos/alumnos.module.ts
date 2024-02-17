@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { UserDetailComponent } from './pages/user-detail/user-detail.component';
 import { RouterModule } from '@angular/router';
+import { AlumnosRoutingModule } from './alumnos-routing.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { RouterModule } from '@angular/router';
     AltaAlumnosModule,
     MatButtonModule,
     MatIconModule,
-    RouterModule
+    RouterModule,
+    AlumnosRoutingModule
   ],
   exports: [
     AlumnosComponent
