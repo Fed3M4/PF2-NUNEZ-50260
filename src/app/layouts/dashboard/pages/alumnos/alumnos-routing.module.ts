@@ -4,7 +4,7 @@ import { AlumnosComponent } from "./alumnos.component";
 import { UserDetailComponent } from "./pages/user-detail/user-detail.component";
 
 const routes: Routes = [
-    {path: 'alumnos', component: AlumnosComponent},
+    {path: '', component: AlumnosComponent},
     {path: 'alumnos/:id', component: UserDetailComponent}
 ]
 @NgModule({

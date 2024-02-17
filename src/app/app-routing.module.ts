@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './layouts/dashboard/dashboard.component';
 import { LoginComponent } from './layouts/auth/login/login.component';
 import { NotFoundComponent } from './layouts/not-found/not-found.component';
+import { DashboardRoutingModule } from './layouts/dashboard/dashboard-routing-module';
+import { AlumnosRoutingModule } from './layouts/dashboard/pages/alumnos/alumnos-routing.module';
+
 
 const routes: Routes = [
   {
     path:'', redirectTo: 'dashboard/home', pathMatch: 'full'
   },
   {
-    path: 'dashboard', component: DashboardComponent,
+    path: 'dashboard',
     loadChildren: () => import('./layouts/dashboard/dashboard.module').then((m)=> m.DashboardModule)
   },
   {
@@ -25,7 +27,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {enableTracing: true})],
+  imports: [RouterModule.forRoot(routes), DashboardRoutingModule, AlumnosRoutingModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
