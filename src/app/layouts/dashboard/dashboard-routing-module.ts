@@ -1,28 +1,36 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./pages/home/home.component";
-import { AlumnosComponent } from "./pages/alumnos/alumnos.component";
 import { NosotrosComponent } from "./pages/nosotros/nosotros.component";
 import { ProfesoresComponent } from "./pages/profesores/profesores.component";
-import { CursosComponent } from "./pages/cursos/cursos.component";
 import { LoginComponent } from "../auth/login/login.component";
 import { DashboardComponent } from "./dashboard.component";
+import { UserDetailComponent } from "./pages/alumnos/pages/user-detail/user-detail.component";
 
 const routes: Routes = [
     {
         path: '',
-        component: DashboardComponent,
+        redirectTo: 'dashboard/home',
+        pathMatch: 'full',
+    },
+    {
+        path: '', component: DashboardComponent,
         children: [
-            {path: '', component: HomeComponent},
-            {path: 'home', component: HomeComponent},
+            {path: 'home', component: HomeComponent,
+            loadChildren: () => import('./pages/home/home.module').then((m) => m.HomeModule)},
             {path: 'alumnos',
             loadChildren: () => import('./pages/alumnos/alumnos.module').then((m)=> m.AlumnosModule)},
-            {path: 'nosotros', component: NosotrosComponent},
-            {path: 'profesores', component: ProfesoresComponent},
+            {path: 'alumnos/:id',
+            loadChildren: () => import('./pages/alumnos/alumnos.module').then((m)=> m.AlumnosModule)},
+            {path: 'nosotros',
+            loadChildren: () => import('./pages/nosotros/nosotros.module').then((m)=> m.NosotrosModule)},
+            {path: 'profesores',
+            loadChildren: () => import('./pages/profesores/profesores.module').then((m) => m.ProfesoresModule)},
             {path: 'cursos',
             loadChildren: () => import('./pages/cursos/cursos.module').then((m)=> m.CursosModule)},
-            {path: 'login', component: LoginComponent},
-            {path: 'logout', redirectTo: 'dashboard/login', pathMatch: 'full'},
+            {path: 'login', component: LoginComponent,
+            loadChildren: () => import('../auth/auth.module').then((m)=> m.AuthModule)},
+            {path: 'logout', redirectTo: 'dashboard/login', pathMatch: 'full'}
         ]
     }
 ]

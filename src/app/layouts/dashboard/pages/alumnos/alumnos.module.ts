@@ -29,7 +29,8 @@ import { AlumnosRoutingModule } from './alumnos-routing.module';
     AlumnosRoutingModule
   ],
   exports: [
-    AlumnosComponent
+    AlumnosComponent,
+    UserDetailComponent
   ],
   providers: []
 })

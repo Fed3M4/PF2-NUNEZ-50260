@@ -5,7 +5,7 @@ import { UserDetailComponent } from "./pages/user-detail/user-detail.component";
 
 const routes: Routes = [
     {path: '', component: AlumnosComponent},
-    {path: 'alumnos/:id', component: UserDetailComponent}
+    {path: ':id', component: UserDetailComponent}
 ]
 @NgModule({
     imports: [RouterModule.forChild(routes)],
